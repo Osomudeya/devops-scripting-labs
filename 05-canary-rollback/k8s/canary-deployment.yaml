@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-canary
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp-canary
+  template:
+    metadata:
+      labels:
+        app: myapp-canary
+    spec:
+      containers:
+        - name: app
+          image: myapp:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          env:
+            - name: VERSION
+              value: canary
+            - name: INJECT_LATENCY
+              value: "false"
+            - name: LATENCY_SECONDS
+              value: "5.0"

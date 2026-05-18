@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-generator
+  namespace: default
+  labels:
+    app: load-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-generator
+  template:
+    metadata:
+      labels:
+        app: load-generator
+    spec:
+      containers:
+        - name: load-generator
+          image: busybox:1.36
+          imagePullPolicy: IfNotPresent
+          # Sends one request to stable and one to canary every 500ms.
+          # Both services receive steady traffic so Prometheus always has
+          # metric data to return when the watch scripts query it.
+          # Without this, PromQL returns empty and the watch scripts cannot fire.
+          command:
+            - sh
+            - -c
+            - |
+              echo "Load generator started. Hitting stable and canary every 500ms."
+              while true; do
+                wget -q -O /dev/null http://myapp-stable:8080/ 2>/dev/null || true
+                wget -q -O /dev/null http://myapp-canary:8080/ 2>/dev/null || true
+                sleep 0.5
+              done
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "50m"
+              memory: "32Mi"

@@ -1,0 +1,75 @@
+# All three services write their logs to the ./logs directory on the host.
+# The correlate.py script reads from ./logs/{service}.log when you run it.
+# This shared volume is what makes the correlation possible from the host machine.
+
+volumes:
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./logs
+
+services:
+  # Immediate 200 for POST — used as the email provider in normal mode.
+  mock-email:
+    image: traefik/whoami:latest
+    restart: unless-stopped
+
+  auth:
+    build:
+      context: ./services/auth
+    environment:
+      PORT: "8001"
+      LEDGER_URL: http://ledger:8002
+    ports:
+      - "8001:8001"
+    volumes:
+      - logs:/logs
+    depends_on:
+      - ledger
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8001/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  ledger:
+    build:
+      context: ./services/ledger
+    environment:
+      PORT: "8002"
+      NOTIFICATION_URL: http://notification:8003
+    ports:
+      - "8002:8002"
+    volumes:
+      - logs:/logs
+    depends_on:
+      - notification
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8002/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  notification:
+    build:
+      context: ./services/notification
+    environment:
+      PORT: "8003"
+      EMAIL_PROVIDER_URL: http://mock-email:80/
+      EMAIL_TIMEOUT: "2.0"
+    ports:
+      - "8003:8003"
+    volumes:
+      - logs:/logs
+    depends_on:
+      - mock-email
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8003/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 5

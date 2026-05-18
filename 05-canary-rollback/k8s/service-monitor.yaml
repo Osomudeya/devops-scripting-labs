@@ -1,0 +1,38 @@
+# ServiceMonitor — Use Case 5: Automated Canary Rollback Trigger
+#
+# This is the resource that tells Prometheus where to find the application's
+# /metrics endpoint. Without this, Prometheus installs fine but never discovers
+# the app and the PromQL queries return empty results.
+#
+# The kube-prometheus-stack Helm chart installs a Prometheus Operator, which
+# watches for ServiceMonitor resources. When it finds one, it configures
+# Prometheus to scrape the Services that match the ServiceMonitor's selector.
+#
+# CRITICAL: The prometheus-values.yaml file sets serviceMonitorSelector: {}
+# which tells Prometheus to watch ALL ServiceMonitors in ALL namespaces.
+# Without that setting, this ServiceMonitor will be ignored.
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: myapp
+  namespace: default
+  labels:
+    # This label must match the serviceMonitorSelector in prometheus-values.yaml.
+    # Since we set serviceMonitorSelector: {} there, any label works here.
+    app: myapp
+spec:
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - myapp-stable
+          - myapp-canary
+  endpoints:
+    - port: http
+      path: /metrics
+      # Scrape every 15 seconds. This is the interval that creates the
+      # "scrape lag" the article describes — the metric values in Prometheus
+      # are always up to 15 seconds behind real time.
+      interval: 15s

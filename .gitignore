@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+venv/
+.venv/
+.env
+.env.*
+
+# Terraform — provider cache and local secrets (state files are committed for lab 03)
+.terraform/
+*.tfvars
+*.tfvars.json
+*.auto.tfvars
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.tfstate.lock.info
+
+# UC3 — runtime mock state (real AWS resource IDs); committed: terraform.tfstate*
+03-drift-detection/mock.tfstate
+03-drift-detection/mock.tfstate.backup
+03-drift-detection/invisible_sgs.txt
+
+# UC2 — runtime files
+02-log-correlation/logs/*.log
+02-log-correlation/docker-compose.override.yml
+
+# macOS / editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Cursor AI
+.cursor/

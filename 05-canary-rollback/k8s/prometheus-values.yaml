@@ -1,0 +1,47 @@
+# Helm values for kube-prometheus-stack
+# Used by setup.sh: helm install prometheus prometheus-community/kube-prometheus-stack -f prometheus-values.yaml
+#
+# The two most important settings here are the selector overrides.
+# By default, kube-prometheus-stack only watches ServiceMonitors with specific
+# labels that match the Helm release. Setting both selectors to {} tells
+# Prometheus to watch ALL ServiceMonitors and ALL PodMonitors in ALL namespaces.
+# Without this, the ServiceMonitor in service-monitor.yaml is silently ignored
+# and the PromQL queries in the watch scripts return empty results.
+
+prometheus:
+  prometheusSpec:
+    # Watch all ServiceMonitors regardless of their labels or namespace
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    # Watch all PodMonitors as well
+    podMonitorSelector: {}
+    podMonitorNamespaceSelector: {}
+    # Scrape interval — keep this at 15s to match the ServiceMonitor
+    scrapeInterval: "15s"
+    # Minimal resource requests for a local Kind cluster
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+
+# Disable components that are not needed for this demo
+# to keep the Kind cluster resource usage low
+alertmanager:
+  enabled: false
+
+grafana:
+  enabled: false
+
+# Keep the Prometheus Operator running — it is required to process ServiceMonitors
+prometheusOperator:
+  enabled: true
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "200m"
+      memory: "128Mi"
