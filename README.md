@@ -45,59 +45,11 @@ python correlate.py <trace_id>
 
 ## Deep dive: DevOps Operating System
 
-If you've been learning DevOps but still can't explain how everything connects — Linux, Docker, Kubernetes, CI/CD — you're not missing effort. You're missing a system.
+If you can follow DevOps tutorials but still struggle to explain how Linux, Docker, Kubernetes, and CI/CD fit together, the gap is usually structure rather than effort. **[DevOps Operating System: From Zero to Job-Ready](https://osomudeya.gumroad.com/l/devops-atlas)** is a 12-phase, self-paced path where each ebook builds on the last and applies to the same production-style three-tier project, so you finish with one system you understand end to end instead of a folder of unrelated exercises.
 
-**[DevOps Operating System — From Zero to Job-Ready](https://osomudeya.gumroad.com/l/devops-atlas)** fixes that.
+The path runs from Linux and Bash through Git, networking, Docker, Kubernetes, Terraform, DevSecOps, CI/CD, observability, GitOps with ArgoCD, interview readiness, and long-term growth in platform engineering, SRE, and cloud architecture. You work from one downloadable repo throughout, and by the end you can walk through a Kubernetes deployment, a CI/CD pipeline, and Terraform-managed infrastructure with the confidence that comes from having built and debugged it yourself.
 
-Many paths hand you 12 separate topics and leave you to figure out how they relate. This one doesn't. Every phase — Linux, Docker, Kubernetes, CI/CD, Terraform, GitOps — builds on the one before it and lands in the same codebase. By the end, you have one production-style project you understand top to bottom, not a folder of disconnected exercises.
-
-That project is what you bring to interviews. Not just a screenshot, but a real system you built, failed at, debugged, fixed, and can walk through confidently because you were there for all of it.
-
-The path is **12 phases**, each delivered as a focused ebook. Fully self-paced, but structured so you always know what to do next. Each file is one phase in the path. The system is based on real-world DevOps workflows and is designed to help you build and explain systems the way engineers actually do in production.
-
-**One downloadable repo:** the production-style three-tier app you build throughout the path.
-
-### The full path you'll follow
-
-1. Linux and Bash
-2. Git and Version Control Strategies
-3. Networking for DevOps
-4. Docker and Containers
-5. Kubernetes
-6. Terraform and Infrastructure as Code
-7. DevSecOps
-8. CI/CD Pipelines
-9. Observability and Monitoring
-10. GitOps with ArgoCD
-11. Job-Ready System: Resume, GitHub, LinkedIn, Interviews
-12. Long-Term Growth: Platform Engineering, SRE, Cloud Architecture
-
-### By the end of this path, you will have
-
-- A working Kubernetes deployment you can walk through confidently in an interview
-- A CI/CD pipeline you can explain step-by-step, not just show on a screenshot
-- Terraform-managed infrastructure provisioned from scratch
-- A real project with failure scenarios you've debugged yourself — the kind that actually comes up in interviews
-
-### Who this is for
-
-- Beginners who are serious about becoming DevOps engineers but don't know where to start
-- Self-taught engineers stuck in tutorial loops who can deploy things but can't explain them
-- Career switchers who need a structured path rather than a scattered collection of courses
-- Engineers who want their projects to pass the interview question: *"Walk me through what this does."*
-
-### Common questions
-
-**Q: Is each phase a separate thing, or do they follow a path?**  
-A: They follow a path. Each phase builds on the one before it and applies to the same project, so by the end, everything connects into one system you understand top to bottom.
-
-**Q: Do I need prior experience?**  
-A: No. The path starts from Linux fundamentals and assumes nothing. If you already know some of the early phases, you can move through them faster; there's no gate stopping you.
-
-**Q: Is this self-paced?**  
-A: Fully. You move at your own speed. No deadlines, no cohorts, no live sessions.
-
-If you're serious about becoming job-ready in DevOps, **[start here](https://osomudeya.gumroad.com/l/devops-atlas)**.
+Whether you are starting from zero, stuck in tutorial loops, or switching careers and need one coherent project for your GitHub and interviews, **[start here](https://osomudeya.gumroad.com/l/devops-atlas)**.
 
 ## Newsletter
 
